@@ -1,5 +1,11 @@
 .character{
     float: left;
+    margin: 1em;
+    text-align: center;
+}
+
+.character img{
+    max-width: 150px;
 }
 
 #defender{
