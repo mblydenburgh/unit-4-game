@@ -30,6 +30,7 @@ const characters = [
 
 let charactersDiv = $('#characters');
 
+
 // Define game variables
 //
 
@@ -52,10 +53,31 @@ let characterCards = characters.map((char,i)=>{
     return createCard(char,i);
 })
 
-// Create listen event to select character
+// Create listen events to select character
 //
+let obiWanCard = $('#char0');
+let lukeCard = $('#char1');
+let maulCard = $('#char2');
+let sidiousCard = $('#char3');
 
-$('#char0').click(()=>{
-    playerCharacter = this;
-    console.log(playerCharacter);
+
+obiWanCard.click(()=>{
+    console.log(`clicked ${characters[0].name}`);
+    playerCharacter = characters[0];
+    //console.log(playerCharacter);
+});
+
+lukeCard.click(()=>{
+    console.log(`clicked ${characters[1].name}`);
+    playerCharacter = characters[1];
+});
+
+maulCard.click(()=>{
+    console.log(`clicked ${characters[2].name}`);
+    playerCharacter = characters[2];
+});
+
+sidiousCard.click(()=>{
+    console.log(`clicked ${characters[3].name}`);
+    playerCharacter = characters[3];
 })
