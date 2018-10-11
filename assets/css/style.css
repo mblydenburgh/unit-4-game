@@ -22,9 +22,7 @@ p{
 }
 
 .character{
-    /* float: left; */
     display: inline-block;
-    /* justify-items: center; */
     vertical-align: middle;
     margin: 5px 1em;
     text-align: center;
@@ -45,11 +43,3 @@ button{
     color: white;
     border: none;
 }
-
-/* #defender{
-    clear: both;
-} */
-
-/* #fight{
-    clear: both;
-} */

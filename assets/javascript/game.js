@@ -63,6 +63,7 @@ function setupCharacters(player, enemy) {
     let enemyCards = enemy.map((enemy, i) => {
         return defendersDiv.append(`<div id="defender${i}" class="character"><p>${enemy.name}</p><img src="${enemy.url}"><p>${enemy.hp}</p></div>`)
     });
+    return enemyCards;
 }
 
 // Create the character cards for player to choose by looping over the characters array
@@ -86,7 +87,7 @@ obiWanCard.click(() => {
     enemyCharacters = characters;
     //console.log(`enemies: ${characters}`)
     //console.log(playerCharacter);
-    setupCharacters(playerCharacter, enemyCharacters);
+    return setupCharacters(playerCharacter, enemyCharacters);
 });
 
 lukeCard.click(() => {
@@ -112,3 +113,19 @@ sidiousCard.click(() => {
 
 //List events for newly created defender cards
 //
+
+const defenderOneCard = $(`#defender1`);
+const defenderTwoCard = $(`#defender2`);
+const defenderThreeCard = $(`#defender3`);
+
+defenderOneCard.click(()=>{
+    console.log(`clicked`)
+});
+
+defenderTwoCard.click(()=>{
+    console.log(`clicked`)
+});
+
+defenderThreeCard.click(()=>{
+    console.log(`clicked`);
+});
