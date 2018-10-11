@@ -21,19 +21,19 @@ const characters = [
         url: "assets/images/maul.jpeg"
     },
     {
-        name: "Darth Sidious",
+        name: "Darth Vader",
         hp: 150,
         attack: 6,
         counter: 20,
-        url: "assets/images/sidious.png"
+        url: "assets/images/vader.jpg"
     },
 ];
 
 //Define jQuery selectors
 //
 
-let charactersDiv = $('#characters');
-let defendersDiv = $('#defender');
+const charactersDiv = $('#characters');
+const defendersDiv = $('#defender');
 
 
 // Define game variables
@@ -62,7 +62,7 @@ function setupCharacters(player, enemy) {
     charactersDiv.append(`<div id="char" class="character"><p>${player[0].name}</p><img src="${player[0].url}"><p>${player[0].hp}</p></div>`);
     let enemyCards = enemy.map((enemy, i) => {
         return defendersDiv.append(`<div id="defender${i}" class="character"><p>${enemy.name}</p><img src="${enemy.url}"><p>${enemy.hp}</p></div>`)
-    })
+    });
 }
 
 // Create the character cards for player to choose by looping over the characters array
@@ -74,10 +74,10 @@ let characterCards = characters.map((char, i) => {
 
 // Create listen events to select character
 //
-let obiWanCard = $('#char0');
-let lukeCard = $('#char1');
-let maulCard = $('#char2');
-let sidiousCard = $('#char3');
+const obiWanCard = $('#char0');
+const lukeCard = $('#char1');
+const maulCard = $('#char2');
+const sidiousCard = $('#char3');
 
 obiWanCard.click(() => {
     console.log(`clicked ${characters[0].name}`);
@@ -109,3 +109,6 @@ sidiousCard.click(() => {
     enemyCharacters = characters;
     setupCharacters(playerCharacter, enemyCharacters);
 });
+
+//List events for newly created defender cards
+//

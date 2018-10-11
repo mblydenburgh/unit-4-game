@@ -6,21 +6,50 @@ body{
     background-size: cover;
 }
 
+h3{
+    margin: 10px auto; 
+}
+
+p{
+    margin: 10px auto;
+}
+
+.container{
+    background-color: rgba(255,255,255,0.7);
+    margin-left:7%;
+    margin-right: 7%;
+    text-align: center;
+}
 
 .character{
-    float: left;
-    margin: 1em;
+    /* float: left; */
+    display: inline-block;
+    /* justify-items: center; */
+    vertical-align: middle;
+    margin: 5px 1em;
     text-align: center;
+}
+
+.character:first-of-type{
+    margin-left: auto;
 }
 
 .character img{
     max-width: 150px;
 }
 
-#defender{
-    clear: both;
+button{
+    border-radius: 10px;
+    padding: 15px 25px;
+    background-color: rgb(201, 29, 29);
+    color: white;
+    border: none;
 }
 
-#fight{
+/* #defender{
     clear: both;
-}
+} */
+
+/* #fight{
+    clear: both;
+} */
