@@ -72,30 +72,51 @@ function setupCharacters(player, enemy) {
     defenderOneCard = $(`#defender0`);
     defenderTwoCard = $(`#defender1`);
     defenderThreeCard = $(`#defender2`);
+
     if (isFighting === false) {
         defenderOneCard.click(() => {
             console.log(`clicked ${enemy[0].name}`);
             currentFighter = enemy.splice(0, 1);
             console.log(`current fighter: ${currentFighter[0].name}`);
-            isFighting = true;
-            fighterDiv.append(`<div id="currentFighter" class="character"><p>${currentFighter[0].name}</p><img src="${currentFighter[0].url}"><p>${currentFighter[0].hp}</p></div>`)
-            defendersDiv.empty();
-            setupCharacters(playerCharacter, enemy);
+            startFight(currentFighter,enemy);
+            // isFighting = true;
+            // fighterDiv.append(`<div id="currentFighter" class="character"><p>${currentFighter[0].name}</p><img src="${currentFighter[0].url}"><p>${currentFighter[0].hp}</p></div>`)
+            // defendersDiv.empty();
+            // setupCharacters(playerCharacter, enemy);
         });
 
         defenderTwoCard.click(() => {
             console.log(`clicked ${enemy[1].name}`);
             currentFighter = enemy.splice(1, 1);
+            console.log(`current fighter: ${currentFighter[0].name}`);
+            startFight(currentFighter,enemy);
+            // isFighting = true;
+            // fighterDiv.append(`<div id="currentFighter" class="character"><p>${currentFighter[0].name}</p><img src="${currentFighter[0].url}"><p>${currentFighter[0].hp}</p></div>`)
+            // defendersDiv.empty();
+            // setupCharacters(playerCharacter, enemy);
         });
 
         defenderThreeCard.click(() => {
             console.log(`clicked ${enemy[2].name}`);
-            currentFighter = enemy.splice(2, 1)
+            currentFighter = enemy.splice(2, 1);
+            console.log(`current fighter: ${currentFighter[0].name}`);
+            startFight(currentFighter,enemy)
+            // isFighting = true;
+            // fighterDiv.append(`<div id="currentFighter" class="character"><p>${currentFighter[0].name}</p><img src="${currentFighter[0].url}"><p>${currentFighter[0].hp}</p></div>`)
+            // defendersDiv.empty();
+            // setupCharacters(playerCharacter, enemy);
         });
-    }
+    } //end ifFighting === false
 
 
-    //return enemyCards;
+    return enemyCards;
+} // end setupCharacters
+
+function startFight(fighter,enemy){
+    isFighting = true;
+    fighterDiv.append(`<div id="currentFighter" class="character"><p>${fighter[0].name}</p><img src="${fighter[0].url}"><p>${fighter[0].hp}</p></div>`);
+    defendersDiv.empty();
+    setupCharacters(playerCharacter,enemy)
 }
 
 // Create the character cards for player to choose by looping over the characters array
