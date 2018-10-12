@@ -34,6 +34,10 @@ const characters = [
 
 const charactersDiv = $('#characters');
 const defendersDiv = $('#defender');
+const fighterDiv = $(`#fight`);
+let defenderOneCard;
+let defenderTwoCard;
+let defenderThreeCard;
 
 
 // Define game variables
@@ -41,6 +45,8 @@ const defendersDiv = $('#defender');
 
 let playerCharacter;
 let enemyCharacters;
+let currentFighter;
+let isFighting = false;
 
 // Define game functions
 //
@@ -57,13 +63,39 @@ function createCard(char, i) {
 //once player selects a character, the chosen character remains in the characters div, while the remaining characters are moved to the defender area
 function setupCharacters(player, enemy) {
     console.log(player[0]);
-    console.log(enemy);
+    console.log(`enemy array: ${enemy[0]}`);
     charactersDiv.empty();
     charactersDiv.append(`<div id="char" class="character"><p>${player[0].name}</p><img src="${player[0].url}"><p>${player[0].hp}</p></div>`);
     let enemyCards = enemy.map((enemy, i) => {
         return defendersDiv.append(`<div id="defender${i}" class="character"><p>${enemy.name}</p><img src="${enemy.url}"><p>${enemy.hp}</p></div>`)
     });
-    return enemyCards;
+    defenderOneCard = $(`#defender0`);
+    defenderTwoCard = $(`#defender1`);
+    defenderThreeCard = $(`#defender2`);
+    if (isFighting === false) {
+        defenderOneCard.click(() => {
+            console.log(`clicked ${enemy[0].name}`);
+            currentFighter = enemy.splice(0, 1);
+            console.log(`current fighter: ${currentFighter[0].name}`);
+            isFighting = true;
+            fighterDiv.append(`<div id="currentFighter" class="character"><p>${currentFighter[0].name}</p><img src="${currentFighter[0].url}"><p>${currentFighter[0].hp}</p></div>`)
+            defendersDiv.empty();
+            setupCharacters(playerCharacter, enemy);
+        });
+
+        defenderTwoCard.click(() => {
+            console.log(`clicked ${enemy[1].name}`);
+            currentFighter = enemy.splice(1, 1);
+        });
+
+        defenderThreeCard.click(() => {
+            console.log(`clicked ${enemy[2].name}`);
+            currentFighter = enemy.splice(2, 1)
+        });
+    }
+
+
+    //return enemyCards;
 }
 
 // Create the character cards for player to choose by looping over the characters array
@@ -111,21 +143,3 @@ sidiousCard.click(() => {
     setupCharacters(playerCharacter, enemyCharacters);
 });
 
-//List events for newly created defender cards
-//
-
-const defenderOneCard = $(`#defender1`);
-const defenderTwoCard = $(`#defender2`);
-const defenderThreeCard = $(`#defender3`);
-
-defenderOneCard.click(()=>{
-    console.log(`clicked`)
-});
-
-defenderTwoCard.click(()=>{
-    console.log(`clicked`)
-});
-
-defenderThreeCard.click(()=>{
-    console.log(`clicked`);
-});
