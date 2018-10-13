@@ -35,9 +35,13 @@ const characters = [
 const charactersDiv = $('#characters');
 const defendersDiv = $('#defender');
 const fighterDiv = $(`#fight`);
+const attackButton = $(`#attackButton`);
+const theRingDiv = $(`#theRing`);
+const battleLogDiv = $(`#battle-log`);
 let defenderOneCard;
 let defenderTwoCard;
 let defenderThreeCard;
+let currentFighter;
 
 
 // Define game variables
@@ -45,7 +49,6 @@ let defenderThreeCard;
 
 let playerCharacter;
 let enemyCharacters;
-let currentFighter;
 let isFighting = false;
 
 // Define game functions
@@ -78,33 +81,25 @@ function setupCharacters(player, enemy) {
             console.log(`clicked ${enemy[0].name}`);
             currentFighter = enemy.splice(0, 1);
             console.log(`current fighter: ${currentFighter[0].name}`);
-            startFight(currentFighter,enemy);
-            // isFighting = true;
-            // fighterDiv.append(`<div id="currentFighter" class="character"><p>${currentFighter[0].name}</p><img src="${currentFighter[0].url}"><p>${currentFighter[0].hp}</p></div>`)
-            // defendersDiv.empty();
-            // setupCharacters(playerCharacter, enemy);
+            console.log(`playerCharacter: ${playerCharacter[0].name}`);
+            startFight(playerCharacter,currentFighter,enemy);
+ 
         });
 
         defenderTwoCard.click(() => {
             console.log(`clicked ${enemy[1].name}`);
             currentFighter = enemy.splice(1, 1);
             console.log(`current fighter: ${currentFighter[0].name}`);
-            startFight(currentFighter,enemy);
-            // isFighting = true;
-            // fighterDiv.append(`<div id="currentFighter" class="character"><p>${currentFighter[0].name}</p><img src="${currentFighter[0].url}"><p>${currentFighter[0].hp}</p></div>`)
-            // defendersDiv.empty();
-            // setupCharacters(playerCharacter, enemy);
+            startFight(playerCharacter,currentFighter,enemy);
+
         });
 
         defenderThreeCard.click(() => {
             console.log(`clicked ${enemy[2].name}`);
             currentFighter = enemy.splice(2, 1);
             console.log(`current fighter: ${currentFighter[0].name}`);
-            startFight(currentFighter,enemy)
-            // isFighting = true;
-            // fighterDiv.append(`<div id="currentFighter" class="character"><p>${currentFighter[0].name}</p><img src="${currentFighter[0].url}"><p>${currentFighter[0].hp}</p></div>`)
-            // defendersDiv.empty();
-            // setupCharacters(playerCharacter, enemy);
+            startFight(playerCharacter,currentFighter,enemy)
+
         });
     } //end ifFighting === false
 
@@ -112,15 +107,31 @@ function setupCharacters(player, enemy) {
     return enemyCards;
 } // end setupCharacters
 
-function startFight(fighter,enemy){
+function startFight(player,fighter,enemy){
     isFighting = true;
-    fighterDiv.append(`<div id="currentFighter" class="character"><p>${fighter[0].name}</p><img src="${fighter[0].url}"><p>${fighter[0].hp}</p></div>`);
+    theRingDiv.append(`<div id="currentFighter" class="character"><p>${fighter[0].name}</p><img src="${fighter[0].url}"><p>${fighter[0].hp}</p></div>`);
+    currentFighter = $(`#currentFighter`);
     defendersDiv.empty();
-    setupCharacters(playerCharacter,enemy)
+    setupCharacters(player,enemy);
+    attackButton.click(()=>{ //possible addition of a fight function with a while loop that runs until the enemy hp === 0?
+        battleLogDiv.prepend(`<p>You attack ${fighter[0].name} for ${player[0].attack} damage</p><p>${fighter[0].name} attacks you for ${fighter[0].counter}</p>`);
+        //for each attack, subtract attack and counter from character HP, increase player attack by their attack value, update DOM
+        player[0].hp -= fighter[0].counter;
+        fighter[0].hp -= player[0].attack;
+        player[0].attack += player[0].attack;
+        charactersDiv.empty();
+        charactersDiv.append(`<div id="char" class="character"><p>${player[0].name}</p><img src="${player[0].url}"><p>${player[0].hp}</p></div>`);
+        theRingDiv.empty();
+        theRingDiv.append(`<div id="currentFighter" class="character"><p>${fighter[0].name}</p><img src="${fighter[0].url}"><p>${fighter[0].hp}</p></div>`);
+
+    }); //end click
 }
 
+
+//End game functions definitions
+
 // Create the character cards for player to choose by looping over the characters array
-//
+// and updating DOM with setupCharacters function.
 
 let characterCards = characters.map((char, i) => {
     return createCard(char, i);
@@ -163,4 +174,3 @@ sidiousCard.click(() => {
     enemyCharacters = characters;
     setupCharacters(playerCharacter, enemyCharacters);
 });
-
