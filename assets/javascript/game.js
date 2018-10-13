@@ -3,6 +3,7 @@ const characters = [
         name: "Obi-Wan Kenobi",
         hp: 120,
         attack: 8,
+        attackAdd: 8,
         counter: 20,
         url: "assets/images/obiwan.jpg"
     },
@@ -10,6 +11,7 @@ const characters = [
         name: "Luke Skywalker",
         hp: 100,
         attack: 8,
+        attackAdd: 8,
         counter: 20,
         url: "assets/images/luke.jpg"
     },
@@ -17,6 +19,7 @@ const characters = [
         name: "Darth Maul",
         hp: 180,
         attack: 5,
+        attackAdd: 5,
         counter: 25,
         url: "assets/images/maul.jpeg"
     },
@@ -24,6 +27,7 @@ const characters = [
         name: "Darth Vader",
         hp: 150,
         attack: 6,
+        attackAdd: 6,
         counter: 20,
         url: "assets/images/vader.jpg"
     },
@@ -82,15 +86,15 @@ function setupCharacters(player, enemy) {
             currentFighter = enemy.splice(0, 1);
             console.log(`current fighter: ${currentFighter[0].name}`);
             console.log(`playerCharacter: ${playerCharacter[0].name}`);
-            startFight(playerCharacter,currentFighter,enemy);
- 
+            startFight(playerCharacter, currentFighter, enemy);
+
         });
 
         defenderTwoCard.click(() => {
             console.log(`clicked ${enemy[1].name}`);
             currentFighter = enemy.splice(1, 1);
             console.log(`current fighter: ${currentFighter[0].name}`);
-            startFight(playerCharacter,currentFighter,enemy);
+            startFight(playerCharacter, currentFighter, enemy);
 
         });
 
@@ -98,7 +102,7 @@ function setupCharacters(player, enemy) {
             console.log(`clicked ${enemy[2].name}`);
             currentFighter = enemy.splice(2, 1);
             console.log(`current fighter: ${currentFighter[0].name}`);
-            startFight(playerCharacter,currentFighter,enemy)
+            startFight(playerCharacter, currentFighter, enemy)
 
         });
     } //end ifFighting === false
@@ -107,18 +111,18 @@ function setupCharacters(player, enemy) {
     return enemyCards;
 } // end setupCharacters
 
-function startFight(player,fighter,enemy){
+function startFight(player, fighter, enemy) {
     isFighting = true;
     theRingDiv.append(`<div id="currentFighter" class="character"><p>${fighter[0].name}</p><img src="${fighter[0].url}"><p>${fighter[0].hp}</p></div>`);
     currentFighter = $(`#currentFighter`);
     defendersDiv.empty();
-    setupCharacters(player,enemy);
-    attackButton.click(()=>{ //possible addition of a fight function with a while loop that runs until the enemy hp === 0?
+    setupCharacters(player, enemy);
+    attackButton.click(() => { //possible addition of a fight function with a while loop that runs until the enemy hp === 0?
         battleLogDiv.prepend(`<p>You attack ${fighter[0].name} for ${player[0].attack} damage</p><p>${fighter[0].name} attacks you for ${fighter[0].counter}</p>`);
         //for each attack, subtract attack and counter from character HP, increase player attack by their attack value, update DOM
         player[0].hp -= fighter[0].counter;
         fighter[0].hp -= player[0].attack;
-        player[0].attack += player[0].attack;
+        player[0].attack += player[0].attackAdd;
         charactersDiv.empty();
         charactersDiv.append(`<div id="char" class="character"><p>${player[0].name}</p><img src="${player[0].url}"><p>${player[0].hp}</p></div>`);
         theRingDiv.empty();
