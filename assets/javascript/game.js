@@ -154,7 +154,8 @@ function startFight(player, fighter, enemy) {
             console.log(`You have defeated ${fighter[0].name}!`);
             updateFighterDisplay(player, fighter, enemy);
             isFighting = false;
-            setupCharacters(player, enemy)
+            setupCharacters(player, enemy);
+            attackButton.off();
         } else {
             console.log(`player or computer hp > 0, fight again`);
             //update character hp
@@ -171,22 +172,19 @@ function updateFighterDisplay(player, fighter, enemy) {
     for (let i = 0; i < enemy.length; i++) {
         console.log(`enemy${i}:${enemy[i].name}`)
     };
-    if (fighter[0].hp < 0) {
-        console.log(`You have defeated ${fighter[0].name}`);
-
+    if (fighter[0].hp < 0) { //remove fighter card from ringDiv, update player HP
+        console.log(`updateFighterDisplay fighter hp < 0 block running...`);
         theRingDiv.empty();
         battleLogDiv.empty();
         battleLogDiv.prepend(`<p>You have owned ${fighter[0].name}, select another fighter to slap</p>`);
 
-    } else {
+    } else { //keep fighter card, update fighter and player HP
         console.log(`${fighter[0].name} hp > 0`)
         charactersDiv.empty();
         charactersDiv.append(`<div id="char" class="character"><p>${player[0].name}</p><img src="${player[0].url}"><p>${player[0].hp}</p></div>`);
         theRingDiv.empty();
         theRingDiv.append(`<div id="currentFighter" class="character"><p>${fighter[0].name}</p><img src="${fighter[0].url}"><p>${fighter[0].hp}</p></div>`);
     }
-
-
 }
 
 
