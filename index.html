@@ -9,6 +9,7 @@
     <!--Link style sheets and jQuery-->
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poller+One" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
@@ -21,18 +22,19 @@
                 </header>
             
                 <section id="characters">
-                    <h3>Your Character</h3>
+                    <h3>Choose Your Character</h3>
                     <!--character cards added by jQuery-->
                 </section>
             
                 <section id="defender">
                     <h3>Enemies available to attack</h3>
+                    <div id="defenderDisplay"></div>
                     <!--all remaining characters not chosen by player become enemies-->
                 </section>
             
                 <section id="fight">
                     <!--here, player can choose to attack-->
-                    <h3>Fighter</h3>
+                    <h3>The Battle Arena</h3>
                     <button id="attackButton">Attack</button>
                     <h3>Defender</h3>
                     <div id="theRing"> <!--step into the ring if you dare! current fighter appends here-->

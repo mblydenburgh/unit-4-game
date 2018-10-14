@@ -37,7 +37,7 @@ const characters = [
 //
 
 const charactersDiv = $('#characters');
-const defendersDiv = $('#defender');
+const defendersDiv = $('#defenderDisplay');
 const fighterDiv = $(`#fight`);
 const attackButton = $(`#attackButton`);
 const theRingDiv = $(`#theRing`);
@@ -60,7 +60,7 @@ let isFighting = false;
 
 // dynamically creates characters to choose based on characters array of objects
 function createCard(char, i) {
-    let characterCard = $(`<div id="char${i}" class="character"><p>${char.name}</p><img src="${char.url}"><p>${char.hp}</p></div>`);
+    let characterCard = $(`<div id="char${i}" class="character"><p>${char.name}</p><img src="${char.url}"><p>hp:${char.hp}</p></div>`);
     return charactersDiv.append(characterCard);
 
 }
@@ -76,9 +76,9 @@ function setupCharacters(player, enemy) {
     }
     charactersDiv.empty();
     defendersDiv.empty();
-    charactersDiv.append(`<div id="char" class="character"><p>${player[0].name}</p><img src="${player[0].url}"><p>${player[0].hp}</p></div>`);
+    charactersDiv.append(`<div id="char" class="character"><p>${player[0].name}</p><img src="${player[0].url}"><p>hp:${player[0].hp}</p></div>`);
     let enemyCards = enemy.map((enemy, i) => {
-        return defendersDiv.append(`<div id="defender${i}" class="character"><p>${enemy.name}</p><img src="${enemy.url}"><p>${enemy.hp}</p></div>`)
+        return defendersDiv.append(`<div id="defender${i}" class="character"><p>${enemy.name}</p><img src="${enemy.url}"><p>hp:${enemy.hp}</p></div>`)
     });
 
     defenderOneCard = $(`#defender0`);
@@ -123,7 +123,7 @@ function startFight(player, fighter, enemy) {
     console.log(fighter);
     console.log(`startFight running with fighter: ${fighter[0].name}`)
     isFighting = true;
-    theRingDiv.append(`<div id="currentFighter" class="character"><p>${fighter[0].name}</p><img src="${fighter[0].url}"><p>${fighter[0].hp}</p></div>`);
+    theRingDiv.append(`<div id="currentFighter" class="character"><p>${fighter[0].name}</p><img src="${fighter[0].url}"><p>hp:${fighter[0].hp}</p></div>`);
     currentFighter = $(`#currentFighter`);
     defendersDiv.empty();
     setupCharacters(player, enemy);
@@ -189,9 +189,9 @@ function updateFighterDisplay(player, fighter, enemy) {
     } else { //keep fighter card, update fighter and player HP
         console.log(`${fighter[0].name} hp > 0`)
         charactersDiv.empty();
-        charactersDiv.append(`<div id="char" class="character"><p>${player[0].name}</p><img src="${player[0].url}"><p>${player[0].hp}</p></div>`);
+        charactersDiv.append(`<div id="char" class="character"><p>${player[0].name}</p><img src="${player[0].url}"><p>hp:${player[0].hp}</p></div>`);
         theRingDiv.empty();
-        theRingDiv.append(`<div id="currentFighter" class="character"><p>${fighter[0].name}</p><img src="${fighter[0].url}"><p>${fighter[0].hp}</p></div>`);
+        theRingDiv.append(`<div id="currentFighter" class="character"><p>${fighter[0].name}</p><img src="${fighter[0].url}"><p>hp:${fighter[0].hp}</p></div>`);
     }
 }
 
