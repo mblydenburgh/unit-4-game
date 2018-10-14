@@ -12,7 +12,7 @@ const characters = [
         hp: 100,
         attack: 8,
         attackAdd: 8,
-        counter: 20,
+        counter: 5,
         url: "assets/images/luke.jpg"
     },
     {
@@ -72,10 +72,12 @@ function setupCharacters(player, enemy) {
     console.log(player[0]);
     console.log(`enemy array: ${enemy[0]}`);
     charactersDiv.empty();
+    defendersDiv.empty();
     charactersDiv.append(`<div id="char" class="character"><p>${player[0].name}</p><img src="${player[0].url}"><p>${player[0].hp}</p></div>`);
     let enemyCards = enemy.map((enemy, i) => {
         return defendersDiv.append(`<div id="defender${i}" class="character"><p>${enemy.name}</p><img src="${enemy.url}"><p>${enemy.hp}</p></div>`)
     });
+
     defenderOneCard = $(`#defender0`);
     defenderTwoCard = $(`#defender1`);
     defenderThreeCard = $(`#defender2`);
@@ -118,17 +120,56 @@ function startFight(player, fighter, enemy) {
     defendersDiv.empty();
     setupCharacters(player, enemy);
     attackButton.click(() => { //possible addition of a fight function with a while loop that runs until the enemy hp === 0?
+        //Display the results of this turn's attacks
         battleLogDiv.prepend(`<p>You attack ${fighter[0].name} for ${player[0].attack} damage</p><p>${fighter[0].name} attacks you for ${fighter[0].counter}</p>`);
-        //for each attack, subtract attack and counter from character HP, increase player attack by their attack value, update DOM
+
+        //for each attack, subtract attack and counter from character HP, increase player attack by their attack value
         player[0].hp -= fighter[0].counter;
         fighter[0].hp -= player[0].attack;
         player[0].attack += player[0].attackAdd;
+
+        //update DOM with new HP values
+        if (player[0].hp < 0) {
+            //display lose
+            console.log(`You have died, you bring great dishonor to your family`);
+            updateFighterDisplay(player, fighter,enemy);
+            charactersDiv.append(`<br><button id="restartBtn">Restart</button>`);
+            $('#restartBtn').click(() => { location.reload() });
+        } else if (fighter[0].hp < 0) {
+            //display win
+            console.log(`You have defeated ${fighter[0].name}!`);
+            updateFighterDisplay(player, fighter, enemy);
+            isFighting = false;
+        } else {
+            //update character hp
+            updateFighterDisplay(player, fighter, enemy);
+            // charactersDiv.empty();
+            // charactersDiv.append(`<div id="char" class="character"><p>${player[0].name}</p><img src="${player[0].url}"><p>${player[0].hp}</p></div>`);
+            // theRingDiv.empty();
+            // theRingDiv.append(`<div id="currentFighter" class="character"><p>${fighter[0].name}</p><img src="${fighter[0].url}"><p>${fighter[0].hp}</p></div>`);
+        }
+
+
+    }); //end fight button click
+}
+
+function updateFighterDisplay(player, fighter,enemy) {
+    if (fighter[0].hp < 0) {
+        theRingDiv.empty();
+        battleLogDiv.empty();
+        battleLogDiv.prepend(`<p>You have owned ${fighter[0].name}, select another fighter to slap</p>`);
+        let remainingEnemies = enemy.filter((obj)=>{return obj.name !== fighter[0].name});
+        console.log(`remaining: ${remainingEnemies}`);
+        isFighting = false;
+        setupCharacters(player,remainingEnemies);
+    } else {
         charactersDiv.empty();
         charactersDiv.append(`<div id="char" class="character"><p>${player[0].name}</p><img src="${player[0].url}"><p>${player[0].hp}</p></div>`);
         theRingDiv.empty();
         theRingDiv.append(`<div id="currentFighter" class="character"><p>${fighter[0].name}</p><img src="${fighter[0].url}"><p>${fighter[0].hp}</p></div>`);
+    }
 
-    }); //end click
+
 }
 
 
