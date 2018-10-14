@@ -143,15 +143,18 @@ function startFight(player, fighter, enemy) {
         if (player[0].hp < 0) {
             //display lose
             console.log(`You have died, you bring great dishonor to your family`);
-            updateFighterDisplay(player, fighter,enemy);
+            updateFighterDisplay(player, fighter, enemy);
             charactersDiv.append(`<br><button id="restartBtn">Restart</button>`);
             $('#restartBtn').click(() => { location.reload() });
+            battleLogDiv.empty();
+            battleLogDiv.append(`${player[0].name} has died a horrible death`);
+            attackButton.attr("disabled","disabled");
         } else if (fighter[0].hp < 0) {
             //display win
             console.log(`You have defeated ${fighter[0].name}!`);
             updateFighterDisplay(player, fighter, enemy);
             isFighting = false;
-            setupCharacters(player,enemy)
+            setupCharacters(player, enemy)
         } else {
             console.log(`player or computer hp > 0, fight again`);
             //update character hp
@@ -175,16 +178,6 @@ function updateFighterDisplay(player, fighter, enemy) {
         battleLogDiv.empty();
         battleLogDiv.prepend(`<p>You have owned ${fighter[0].name}, select another fighter to slap</p>`);
 
-        let remainingEnemies = enemy.filter((obj) => { return obj.name !== fighter[0].name });
-
-        
-        console.log(`remaining enemies: ${remainingEnemies.length}`);
-        for (let i = 0; i < remainingEnemies.length; i++) {
-            console.log(`${remainingEnemies[i].name}`)
-        }
-
-        isFighting = false;
-        //setupCharacters(player, remainingEnemies);
     } else {
         console.log(`${fighter[0].name} hp > 0`)
         charactersDiv.empty();
