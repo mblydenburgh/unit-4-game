@@ -130,7 +130,7 @@ function startFight(player, fighter, enemy) {
     attackButton.click(() => {
         //Display the results of this turn's attacks
         console.log(`clicked attack`);
-        battleLogDiv.prepend(`<p>You attack ${fighter[0].name} for ${player[0].attack} damage</p><p>${fighter[0].name} attacks you for ${fighter[0].counter}</p>`);
+        battleLogDiv.html(`<p>You attack ${fighter[0].name} for ${player[0].attack} damage</p><p>${fighter[0].name} attacks you for ${fighter[0].counter}</p>`);
 
         //for each attack, subtract attack and counter from character HP, increase player attack by their attack value
         player[0].hp -= fighter[0].counter;
