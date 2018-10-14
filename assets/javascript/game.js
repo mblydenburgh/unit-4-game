@@ -148,14 +148,22 @@ function startFight(player, fighter, enemy) {
             $('#restartBtn').click(() => { location.reload() });
             battleLogDiv.empty();
             battleLogDiv.append(`${player[0].name} has died a horrible death`);
-            attackButton.attr("disabled","disabled");
+            attackButton.attr("disabled", "disabled");
         } else if (fighter[0].hp < 0) {
             //display win
             console.log(`You have defeated ${fighter[0].name}!`);
             updateFighterDisplay(player, fighter, enemy);
             isFighting = false;
-            setupCharacters(player, enemy);
-            attackButton.off();
+            if (enemy.length > 0) {
+                setupCharacters(player, enemy);
+                attackButton.off();
+            }else{
+                battleLogDiv.empty();
+                battleLogDiv.html(`<p>The force is strong in you, ${player[0].name}</p>`)
+                attackButton.off();
+            }
+            //setupCharacters(player, enemy);
+            // attackButton.off();
         } else {
             console.log(`player or computer hp > 0, fight again`);
             //update character hp
